@@ -22,9 +22,11 @@ router.post('/register', verify, async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword
+            id: req.body.id,
+            nickname: req.body.nickname,
+            photoUrl: req.body.photoUrl,
+            aboutMe: req.body.aboutMe,
+            role: 'free'
         });
 
         const savedUser = await user.save();
@@ -123,9 +125,9 @@ router.put('/update', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        user.password = hashedPassword;
-        user.name = req.body.name;
-        user.email = req.body.email;
+        user.nickname = req.body.nickname;
+        user.aboutMe = req.body.aboutMe;
+        user.photoUrl = req.body.photoUrl;
         res.send(user);
 
     } catch (err) {

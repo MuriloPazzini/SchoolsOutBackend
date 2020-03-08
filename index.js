@@ -20,4 +20,4 @@ app.use(express.json());
 //Route Middleware
 app.use('/api/user', authRoute);
 
-app.listen(3000, () => console.log('Server Up and running'));
+app.listen(process.env.PORT, () => console.log('Server Up and running'));
