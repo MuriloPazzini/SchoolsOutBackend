@@ -6,21 +6,21 @@ const verify = require('../routes/verifyToken');
 const User = require('../models/User');
 const { registerValidation, loginValidation } = require('../validator');
 
-router.post('/register', verify, async (req, res) => {
+router.post('/register', async (req, res) => {
     try {
         //Validate before Register
-        const validation = registerValidation(req.body);
+        //const validation = registerValidation(req.body);
 
-        if (validation.error)
-            return res.status(400).send(validation.error.details[0].message);
+        //if (validation.error)
+        //    return res.status(400).send(validation.error.details[0].message);
 
-        const emailExists = await User.findOne({ email: req.body.email });
-        if (emailExists)
-            return res.status(400).send('Email already registered.');
+        const userExists = await User.findOne({ id: req.body.id });
+        if (userExists)
+            return res.status(400).send('User already registered.');
 
         //hash password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        //const salt = await bcrypt.genSalt(10);
+        //const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const user = new User({
             id: req.body.id,
             nickname: req.body.nickname,
@@ -37,61 +37,61 @@ router.post('/register', verify, async (req, res) => {
     }
 });
 
-router.post('/email', async (req, res) => {
-    try {
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'email@email.com', //Trocar essas infos antes do envio
-                pass: 'teste1234'
-            }
-        });
-
-        var mailOptions = {
-            from: 'email@email.com', //Trocar essa info antes do envio
-            to: req.body.mailTo,
-            subject: req.body.subject,
-            text: req.body.text
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                res.status(400).send(error);
-            } else {
-                res.status(200).send('Email sent: ' + info.response);
-            }
-        });
-
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
-
-router.post('/login', async (req, res) => {
-    try {
-        var validation = loginValidation(req.body);
-
-        if (validation.error)
-            return res.status.send(validation.error.details[0].message);
-
-        const correspondingUser = await User.findOne({ email: req.body.email });
-        if (!correspondingUser) {
-            return res.status(400).send('Email or password is wrong.');
-        }
-
-        const validPass = await bcrypt.compare(req.body.password, correspondingUser.password);
-        if (!validPass) {
-            return res.status(400).send('Email or password is wrong.')
-        }
-
-        //create token
-        const token = jwt.sign({ _id: correspondingUser._id }, process.env.TOKEN_SECRET);
-        res.header('auth-token', token).send(token);
-
-    } catch (err) {
-
-    }
-});
+//router.post('/email', async (req, res) => {
+//    try {
+//        var transporter = nodemailer.createTransport({
+//            service: 'gmail',
+//            auth: {
+//                user: 'email@email.com', //Trocar essas infos antes do envio
+//                pass: 'teste1234'
+//            }
+//        });
+//
+//        var mailOptions = {
+//            from: 'email@email.com', //Trocar essa info antes do envio
+//            to: req.body.mailTo,
+//            subject: req.body.subject,
+//            text: req.body.text
+//        };
+//
+//        transporter.sendMail(mailOptions, function (error, info) {
+//            if (error) {
+//                res.status(400).send(error);
+//            } else {
+//                res.status(200).send('Email sent: ' + info.response);
+//            }
+//        });
+//
+//    } catch (err) {
+//        res.status(400).send(err);
+//    }
+//});
+//
+//router.post('/login', async (req, res) => {
+//    try {
+//        var validation = loginValidation(req.body);
+//
+//        if (validation.error)
+//            return res.status.send(validation.error.details[0].message);
+//
+//        const correspondingUser = await User.findOne({ email: req.body.email });
+//        if (!correspondingUser) {
+//            return res.status(400).send('Email or password is wrong.');
+//        }
+//
+//        const validPass = await bcrypt.compare(req.body.password, correspondingUser.password);
+//        if (!validPass) {
+//            return res.status(400).send('Email or password is wrong.')
+//        }
+//
+//        //create token
+//        const token = jwt.sign({ _id: correspondingUser._id }, process.env.TOKEN_SECRET);
+//        res.header('auth-token', token).send(token);
+//
+//    } catch (err) {
+//
+//    }
+//});
 
 router.get('/all', async (req, res) => {
     try {
