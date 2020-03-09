@@ -8,6 +8,7 @@ const authRoute = require('./routes/auth');
 const quizRoute = require('./routes/quiz');
 const comicsRoute = require('./routes/comics');
 
+
 dotenv.config();
 
 //Connect to MongoDB
