@@ -5,6 +5,8 @@ const app = express();
 
 //Import Routes
 const authRoute = require('./routes/auth');
+const quizRoute = require('./routes/quiz');
+const comicsRoute = require('./routes/comics');
 
 dotenv.config();
 
@@ -19,5 +21,8 @@ app.use(express.json());
 
 //Route Middleware
 app.use('/api/user', authRoute);
+app.use('/api/quiz', quizRoute);
+app.use('/api/comics', comicsRoute);
+
 
 app.listen(process.env.PORT, () => console.log('Server Up and running'));
