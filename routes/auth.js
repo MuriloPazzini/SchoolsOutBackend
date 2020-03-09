@@ -109,7 +109,7 @@ router.get('/all', async (req, res) => {
 router.get('/getById/:id', async (req, res) => {
     try {
         var id = req.params.id;
-        var user = await User.findOne({ _id: id })
+        var user = await User.findOne({ id: id })
         res.send(user);
 
     } catch (err) {
