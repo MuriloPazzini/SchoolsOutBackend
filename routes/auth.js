@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 const verify = require('../routes/verifyToken');
-const User = require('../models/user');
+const User = require('../models/User');
 const { registerValidation, loginValidation } = require('../validator');
 
 router.post('/register', async (req, res) => {
