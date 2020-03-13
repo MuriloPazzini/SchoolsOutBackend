@@ -1,2 +1,2 @@
-# Node_Express_JWT_Email
-Basic project with only one route to authenticate and send email's
+# Schools Out Backend
+Schools Out Backend running on NodeJs and MongoDB
