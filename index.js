@@ -19,6 +19,10 @@ mongoose.connect(process.env.DB_CONNECT,
     () => console.log('Connected to MongoDB')
 );
 
+app.get('/', (req, res) => {
+    res.send("Node Server is running. Yay!!")
+})
+
 //Middleware
 app.use(express.json());
 
