@@ -16,11 +16,17 @@ mongoose.connect(process.env.DB_CONNECT,
     { useNewUrlParser: true },
     () => console.log('Connected to MongoDB')
 );
+let messageHistory = [];
+
 
 app.get('/', (req, res) => {
-    res.send("Node Server is running. Yay!!")
+    res.send("Schools Out App Server is Running");
 })
 
+
+app.get('/chatHistory', (req, res) => {
+    res.send({ 'data': messageHistory });
+})
 //Middleware
 app.use(express.json());
 
@@ -33,11 +39,8 @@ var server = app.listen(process.env.PORT, () => console.log('Server Up and runni
 
 var io = require('socket.io').listen(server);
 
-let messageHistory = [];
 
 io.on("connection", (userSocket) => {
-    io.emit('connect message', { data: messageHistory });
-
 
     userSocket.on("send_message", (data) => {
         messageHistory.push(data);
