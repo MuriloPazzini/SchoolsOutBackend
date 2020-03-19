@@ -2,8 +2,6 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
 
 //Import Routes
 const authRoute = require('./routes/auth');
@@ -31,6 +29,10 @@ app.use('/api/user', authRoute);
 app.use('/api/quiz', quizRoute);
 app.use('/api/comics', comicsRoute);
 
+var server = app.listen(process.env.PORT, () => console.log('Server Up and running'));
+
+var io = require('socket.io').listen(server);
+
 io.on("connection", (userSocket) => {
     userSocket.on("send_message", (data) => {
         userSocket.broadcast.emit("receive_message", data)
@@ -38,4 +40,3 @@ io.on("connection", (userSocket) => {
 })
 
 
-app.listen(process.env.PORT, () => console.log('Server Up and running'));
