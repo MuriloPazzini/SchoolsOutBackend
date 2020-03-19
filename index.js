@@ -33,8 +33,18 @@ var server = app.listen(process.env.PORT, () => console.log('Server Up and runni
 
 var io = require('socket.io').listen(server);
 
+let messageHistory = [];
+
 io.on("connection", (userSocket) => {
+    io.emit('connect message', { data: messageHistory });
+
+
     userSocket.on("send_message", (data) => {
+        messageHistory.push(data);
+
+        if (messageHistory.length > 50) {
+            messageHistory.removeAt(0);
+        }
         userSocket.broadcast.emit("receive_message", data)
     })
 })
