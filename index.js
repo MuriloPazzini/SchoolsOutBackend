@@ -44,7 +44,7 @@ io.on("connection", (userSocket) => {
 
     userSocket.on("send_message", (data) => {
         messageHistory.push(data);
-
+        console.log(messageHistory);
         if (messageHistory.length > 50) {
             messageHistory.removeAt(0);
         }
