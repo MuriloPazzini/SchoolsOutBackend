@@ -40,7 +40,7 @@ var server = app.listen(process.env.PORT, () => console.log('Server Up and runni
 var io = require('socket.io').listen(server);
 
 
-io.on("connection", (userSocket) => {
+io.of('/chat').on("connection", (userSocket) => {
 
     userSocket.on("send_message", (data) => {
         messageHistory.push(data);
