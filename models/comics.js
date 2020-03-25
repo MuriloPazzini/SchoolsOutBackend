@@ -19,6 +19,13 @@ const comicsSchema = new mongoose.Schema({
         required: true,
         max: 255,
         min: 6
+    },
+    previewPages: {
+        type: Array
+    },
+    price: {
+        type: Number,
+        required: true
     }
 });
 

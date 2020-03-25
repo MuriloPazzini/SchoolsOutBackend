@@ -26,10 +26,7 @@ const userSchema = new mongoose.Schema({
         min: 6
     },
     role: {
-        type: String,
-        required: true,
-        max: 1024,
-        min: 6
+        type: Array
     }
 });
 
