@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
             nickname: req.body.nickname,
             photoUrl: req.body.photoUrl,
             aboutMe: req.body.aboutMe,
-            role: 'free'
+            owned: []
         });
 
         const savedUser = await user.save();
