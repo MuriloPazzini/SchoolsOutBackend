@@ -15,7 +15,8 @@ router.post('/insert', async (req, res) => {
             pages: req.body.pages,
             type: req.body.type,
             previewPages: req.body.previewPages,
-            price: req.body.price
+            price: req.body.price,
+            description: req.body.description
         });
 
         const savedComics = await comics.save();
