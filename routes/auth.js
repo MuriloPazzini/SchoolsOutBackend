@@ -128,6 +128,7 @@ router.put('/update', async (req, res) => {
         user.nickname = req.body.nickname;
         user.aboutMe = req.body.aboutMe;
         user.photoUrl = req.body.photoUrl;
+        user.owned = req.body.owned;
         res.send(user);
 
     } catch (err) {
