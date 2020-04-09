@@ -41,8 +41,9 @@ var io = require('socket.io').listen(server);
 
 
 io.on("connection", (userSocket) => {
-
+    console.log('conectou');
     userSocket.on("send_message", (data) => {
+        console.log('mensagem');
         messageHistory.push(data);
         console.log(messageHistory);
         if (messageHistory.length > 50) {
