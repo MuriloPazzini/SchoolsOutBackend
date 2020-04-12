@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+const cors = require('cors')
+
 
 //Import Routes
 const authRoute = require('./routes/auth');
@@ -29,6 +31,7 @@ app.get('/chatHistory', (req, res) => {
 })
 //Middleware
 app.use(express.json());
+app.use(cors());
 
 //Route Middleware
 app.use('/api/user', authRoute);
