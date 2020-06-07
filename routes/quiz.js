@@ -5,7 +5,10 @@ var nodemailer = require('nodemailer');
 const verify = require('../routes/verifyToken');
 const Quiz = require('../models/quiz');
 
-const { registerValidation, loginValidation } = require('../validator');
+const {
+    registerValidation,
+    loginValidation
+} = require('../validator');
 
 router.post('/insert', async (req, res) => {
     try {
@@ -32,6 +35,19 @@ router.get('/all', async (req, res) => {
         })
     } catch (err) {
 
+    }
+});
+
+router.get('/getById/:id', async (req, res) => {
+    try {
+        var id = req.params.id;
+        var quiz = await Quiz.findOne({
+            _id: id
+        })
+        res.send(quiz);
+
+    } catch (err) {
+        res.status(400).send(err);
     }
 })
 
