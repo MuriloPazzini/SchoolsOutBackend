@@ -38,7 +38,7 @@ app.use('/api/user', authRoute);
 app.use('/api/quiz', quizRoute);
 app.use('/api/comics', comicsRoute);
 
-var server = app.listen(process.env.PORT, () => console.log('Server Up and running'));
+var server = app.listen(process.env.PORT, () => console.log('Server Up and running on port ' + process.env.PORT));
 
 var io = require('socket.io').listen(server);
 
